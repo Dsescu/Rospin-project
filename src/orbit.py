@@ -24,16 +24,22 @@ def create_satellite(tle):
 def get_position_at_time(satellite, time):
     """
     calculeaza pozitia satelitului la un anumit moment.
-      return in latitude, longitude si altitude in kilometri.
+      return in latitude, longitude si altitude in kilometri, si viteza.
     """
 
     geocentric = satellite.at(time)
     subpoint = geocentric.subpoint()
+    
+    # Calculăm viteza
+    velocity = geocentric.velocity.km_per_s
+    import math
+    speed = math.sqrt(sum(v**2 for v in velocity))
 
     return {
         "latitude": float(subpoint.latitude.degrees),
         "longitude": float(subpoint.longitude.degrees),
-        "altitude_km": float(subpoint.elevation.km)
+        "altitude_km": float(subpoint.elevation.km),
+        "velocity_km_s": float(speed)
     }
 
 

@@ -1,3 +1,7 @@
 requests
 skyfield
+streamlit
+folium
+streamlit-folium
+pandas
 
