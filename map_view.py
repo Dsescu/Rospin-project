@@ -6,11 +6,17 @@ def create_map(satellite_pos, ground_station_pos, ground_track_coords):
     Creează o hartă Folium cu satelitul, stația la sol și ground track.
     """
     # Centrăm harta pe poziția satelitului și dezactivăm repetiția hărții (world wrap)
+    # Setăm limitele hărții pentru a preveni scroll-ul infinit
     m = folium.Map(
         location=[satellite_pos['latitude'], satellite_pos['longitude']],
         zoom_start=2,
         no_wrap=True,
-        max_bounds=True
+        min_zoom=2,
+        max_bounds=True,
+        min_lat=-90,
+        max_lat=90,
+        min_lon=-180,
+        max_lon=180
     )
     
     # Adăugăm Ground Track (gestionând trecerile peste antimeridian)
